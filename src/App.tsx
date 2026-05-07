@@ -9,52 +9,54 @@ import {
   MapPin, 
   Phone, 
   Clock, 
-  Instagram, 
-  Facebook, 
-  Mail,
   Heart,
   Store,
   Utensils
 } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import logoImageUrl from './WhatsApp_Image_2026-05-07_at_21.53.28-removebg-preview.png';
+import showcaseCakeImageUrl from './WhatsApp Image 2026-05-05 at 20.14.43.jpeg';
 
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex flex-col items-center select-none ${className}`}>
-      {/* Lotus Icon - Replicating the brand mark */}
-      <div className="relative w-24 h-24 mb-[-12px] z-10 drop-shadow-md">
-        <svg viewBox="0 0 100 100" className="w-full h-full text-brand-pink fill-current">
-          <path d="M50 15C55 5 70 5 80 15C90 25 80 40 50 80C20 40 10 25 20 15C30 5 45 5 50 15Z" />
-          <path d="M15 35C5 35 0 25 10 15C20 5 35 15 50 40C35 15 20 5 10 15C0 25 5 35 15 35Z" opacity="0.6" />
-          <path d="M85 35C95 35 100 25 90 15C80 5 65 15 50 40C65 15 80 5 90 15C100 25 95 35 85 35Z" opacity="0.6" />
-        </svg>
-      </div>
-      
-      {/* Text mahapadam */}
-      <div className="flex flex-col items-center">
-        <h1 className="text-6xl font-brand font-bold text-brand-pink text-stroke-yellow tracking-tighter leading-none lowercase">
-          mahapadam
-        </h1>
-        {/* SWEETS in Green Oval */}
-        <div className="mt-1 px-10 py-1.5 bg-brand-green rounded-full shadow-inner">
-          <span className="text-brand-dark font-black tracking-[0.3em] text-[11px] uppercase">
-            SWEETS
-          </span>
-        </div>
-      </div>
+    <div className={`flex items-center justify-center select-none ${className}`}>
+      <img
+        src={logoImageUrl}
+        alt="Mahapadam Sweets logo"
+        className="h-24 w-auto object-contain"
+      />
     </div>
   );
 }
 
 export default function App() {
   const containerRef = useRef(null);
+  const [showPhoneInHeader, setShowPhoneInHeader] = useState(false);
 
   return (
     <div ref={containerRef} className="min-h-screen bg-brand-cream overflow-x-hidden selection:bg-brand-pink selection:text-white">
       {/* Navigation - Centered Logo Only */}
       <nav className="fixed top-0 left-0 w-full z-50 bg-brand-cream/80 backdrop-blur-md border-b border-brand-pink/10">
-        <div className="max-w-7xl mx-auto px-6 h-28 flex items-center justify-center">
-           <Logo className="scale-75" />
+        <div className="max-w-7xl mx-auto px-6 h-28 grid grid-cols-3 items-center">
+           <div />
+           <div className="flex justify-center">
+             <Logo className="scale-75" />
+           </div>
+           <div className="flex justify-end">
+             <button
+               type="button"
+               onClick={() => setShowPhoneInHeader((prev) => !prev)}
+               className="inline-flex items-center gap-2 rounded-full bg-brand-pink text-white px-4 py-2 text-xs font-bold uppercase tracking-wider shadow hover:bg-brand-pink/90 transition-colors"
+             >
+               <Phone size={14} />
+               Contact Us
+             </button>
+             {showPhoneInHeader && (
+               <span className="ml-3 self-center text-sm font-bold text-brand-dark">
+                 +91 9415552777
+               </span>
+             )}
+           </div>
         </div>
       </nav>
 
@@ -115,10 +117,9 @@ export default function App() {
           <div className="grid md:grid-cols-2 gap-8">
             <div className="relative aspect-square rounded-3xl overflow-hidden shadow-2xl border-2 border-white group">
               <img 
-                src="https://images.unsplash.com/photo-1589119908995-c6837fa14848?auto=format&fit=crop&q=80&w=1200" 
+                src={showcaseCakeImageUrl}
                 alt="Traditional Sweets" 
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                referrerPolicy="no-referrer"
               />
               <div className="absolute inset-x-8 bottom-8 p-6 bg-white/90 backdrop-blur-md rounded-2xl">
                 <h4 className="text-brand-pink font-serif text-2xl font-bold">The Artisanal Touch</h4>
@@ -129,10 +130,9 @@ export default function App() {
             <div className="grid gap-8">
               <div className="relative aspect-[16/9] rounded-3xl overflow-hidden shadow-xl border-2 border-white group">
                 <img 
-                  src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=1000" 
+                  src={showcaseCakeImageUrl}
                   alt="Bakery Fresh" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-brand-green/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
@@ -178,18 +178,15 @@ export default function App() {
         <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 mb-20 text-center md:text-left">
           <div className="space-y-6">
             <div className="flex items-center justify-center md:justify-start gap-3">
-              <span className="text-2xl font-serif font-bold text-brand-pink font-brand italic underline decoration-brand-yellow/30">Mahapadam</span>
+              <img
+                src={logoImageUrl}
+                alt="Mahapadam Sweets logo"
+                className="h-14 w-auto object-contain"
+              />
             </div>
             <p className="text-sm text-brand-dark/50 leading-loose">
               Sharing the authentic taste of tradition since 2014. Your destination for the finest sweets and artisanal bakery delights.
             </p>
-            <div className="flex justify-center md:justify-start gap-4">
-              {[Instagram, Facebook, Mail].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full border border-brand-pink/20 flex items-center justify-center transition-colors hover:bg-brand-pink hover:text-white">
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
           </div>
 
           <div className="space-y-6">
@@ -197,11 +194,11 @@ export default function App() {
             <ul className="space-y-4 text-sm text-brand-dark/70">
               <li className="flex items-start justify-center md:justify-start gap-3">
                 <MapPin size={18} className="text-brand-pink shrink-0" />
-                <span>123 Heritage Lane, Sweet Market, <br/> Jaipur, Rajasthan 302001</span>
+                <span>60 Feet Road, Jankipuram Vistar, Lucknow</span>
               </li>
               <li className="flex items-center justify-center md:justify-start gap-3">
                 <Phone size={18} className="text-brand-pink" />
-                <span>+91 98765 43210</span>
+                <span>+91 9415552777</span>
               </li>
             </ul>
           </div>
@@ -211,22 +208,14 @@ export default function App() {
             <ul className="space-y-4 text-sm text-brand-dark/70">
               <li className="flex items-center justify-center md:justify-start gap-3">
                 <Clock size={18} className="text-brand-pink" />
-                <span>Mon - Sat: 8:00 AM - 10:00 PM</span>
-              </li>
-              <li className="flex items-center justify-center md:justify-start gap-3">
-                <Clock size={14} className="text-brand-pink/50 ml-1" />
-                <span>Sunday: 8:00 AM - 11:00 PM</span>
+                <span>7AM to 11PM (All 7 Days)</span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto pt-10 border-t border-brand-pink/10 flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] uppercase font-bold tracking-widest text-brand-dark/40">
+        <div className="max-w-7xl mx-auto pt-10 border-t border-brand-pink/10 flex items-center justify-center gap-6 text-[10px] uppercase font-bold tracking-widest text-brand-dark/40">
            <p>© 2024 Mahapadam Sweets & Bakery. All Rights Reserved.</p>
-           <div className="flex gap-8">
-             <a href="#" className="hover:text-brand-pink transition-colors">Privacy Policy</a>
-             <a href="#" className="hover:text-brand-pink transition-colors">Terms of Service</a>
-           </div>
         </div>
       </footer>
     </div>
